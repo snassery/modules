@@ -2,7 +2,7 @@ name = MyModule
 description = Provides a really neat widget for your site's sidebar.
 core = 7.x
 package = Views
-dependencies[] = views
-dependencies[] = panels
+dependencies[] = ctools
+
 files[] = modules/mymodule.php
 region[] = left side-rail
