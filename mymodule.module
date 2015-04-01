@@ -12,7 +12,7 @@ function mymodule_user($type, &$edit, &$user, &$timezone, $category = NULL) {
         );
         return array(t('History') => $items);
 
-      break;[]
+      break;
     }
     function drupal_set_message($message = NULL, $type = 'status', $repeat = TRUE) {  
    if ($message) {  
@@ -43,7 +43,7 @@ else {
   return variable_get('date_default_timezone', @date_default_timezone_get()); }
 }
     }
-    
+
 function blockanimate_help($path, $arg) {
   switch ($path) {
     case 'admin/help#blockanimate':
