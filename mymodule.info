@@ -1,0 +1,46 @@
+<?php  /**
+ * Implementation of hook_user().
+ */
+function mymodule_user($type, &$edit, &$user, &$timezone $category = NULL) {  
+  switch ($type) {
+    case 'view':
+      # code...
+    $items['Last login'] = array( 
+      'title' => t('Last login'),
+        'value' => format_date($user->login,'small'),
+        'class' => 'mymodule',
+        );
+        return array(t('History') => $items);
+
+      break;[]
+    }
+    function drupal_set_message($message = NULL, $type = 'status', $repeat = TRUE) {  
+   if ($message) {  
+    if (!isset($_SESSION ['messages'])) {
+      $_SESSION ['messages'] = array(); 
+    }
+
+    if (!isset($_SESSION ['messages'][$type])) {
+      $_SESSION ['messages'][$type] = array();
+    }
+
+    if ($repeat || !in_array($message, $_SESSION ['messages'][$type])) {  
+      $_SESSION ['messages'][$type][] = $message;  
+    }
+  }
+
+  // messages not set when DB connection fails
+  return isset($_SESSION ['messages']) ? $_SESSION ['messages'] : NULL; 
+}
+
+    function drupal_get_user_timezone() { 
+   global $user; 
+   if (variable_get('configurable_timezones', 1) && $user->uid && $user->timezone) {  
+   return $user->timezone; 
+}
+else { 
+
+  return variable_get('date_default_timezone', @date_default_timezone_get()); }
+}
+    }
+?>
