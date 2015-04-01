@@ -464,12 +464,7 @@ function mymodule_admin_configure($form, &$form_state, $module, $delta) {
     '#type' => 'value',
     '#value' => $block->delta,
   );
-
-  // Get the block subject for the page title.
-  $info = module_invoke($block->module, ‘mymodule_info');
-  if (isset($info[$block->delta])) {
-    drupal_set_title(t("'%name' block", array('%name' => $info[$block->delta]['info'])), PASS_THROUGH);
-  }
+ 
 
   $form['settings']['title'] = array(
     '#type' => 'textfield',
