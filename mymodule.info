@@ -1,8 +1,8 @@
-name = MyModule
-description = Provides a really neat widget for your site's sidebar.
+name = CModule
+description = test
 core = 7.x
 package = Views
 dependencies[] = ctools
 
-files[] = modules/mymodule.php
+files[] = modules/mymodule.module
 region[] = content
