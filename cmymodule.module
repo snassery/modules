@@ -31,18 +31,45 @@ function block_example_menu() {
   );
   return $items;
 }
-function system_time_zones($blank = NULL) {
-  $zonelist = timezone_identifiers_list();
-  $zones = $blank ? array('' => t('- None selected -')) : array();
-  foreach ($zonelist as $zone) {
-    // Because many time zones exist in PHP only for backward compatibility
-    // reasons and should not be used, the list is filtered by a regular
-    // expression.
-    if (preg_match('!^((Africa|America|Antarctica|Arctic|Asia|Atlantic|Australia|Europe|Indian|Pacific)/|UTC$)!', $zone)) {
-      $zones[$zone] = t('@zone: @date', array('@zone' => t(str_replace('_', ' ', $zone)), '@date' => format_date(REQUEST_TIME, 'custom', variable_get('date_format_long', 'l, F j, Y - H:i') . ' O', $zone)));
-    }
+<?php
+/**
+ * @file
+ * Module file for block_example.
+ */
+
+/**
+ * @defgroup block_example Example: Block
+ * @ingroup examples
+ * @{
+ * Demonstrates code creation of blocks.
+ *
+ * This is an example outlining how a module can define blocks that can be
+ * displayed on various pages of a site, or how to alter blocks provided by
+ * other modules.
+ */
+
+/**
+ * Implements hook_menu().
+ *
+ * Provides a default page to explain what this module does.
+ */
+function block_example_menu() {
+  $items['examples/block_example'] = array(
+    'page callback' => 'block_example_page',
+    'access callback' => TRUE,
+    'title' => 'Block Example',
+  );
+  return $items;
+}
+
+function drupal_get_user_timezone() {
+  global $user;
+  if (variable_get('configurable_timezones', 1) && $user->uid && $user->timezone) {
+    return $user->timezone;
   }
-  // Sort the translated time zones alphabetically.
-  asort($zones);
-  return $zones;
+  else {
+    // Ignore PHP strict notice if time zone has not yet been set in the php.ini
+    // configuration.
+    return variable_get('date_default_timezone', @date_default_timezone_get());
+  }
 }
